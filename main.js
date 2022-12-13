@@ -1,8 +1,16 @@
 import * as THREE from "three";
-import { AmbientLight } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import earthTexture from "./assets/earth.jpg";
 import "./style.css";
+
+import {
+  vertexShader,
+  fragmentShader,
+  atmosphereFragmentShader,
+  atmosphereVertexShader,
+} from "./shaders/index.js";
+
+import { PointsMaterial } from "three";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -14,6 +22,7 @@ const camera = new THREE.PerspectiveCamera(
 
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector("#three"),
+  antialias: true,
 });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -27,20 +36,51 @@ const textureLoader = new THREE.TextureLoader();
 // add objects
 
 const geometry = new THREE.SphereGeometry(10, 50, 40);
-const material = new THREE.MeshLambertMaterial({
-  map: textureLoader.load(earthTexture),
+const material = new THREE.ShaderMaterial({
+  vertexShader,
+  fragmentShader,
+  uniforms: {
+    earthTexture: {
+      value: textureLoader.load(earthTexture),
+    },
+  },
 });
 const earth = new THREE.Mesh(geometry, material);
-scene.add(earth);
 
-// lights
+//atmosphere
 
-const pointLight = new THREE.PointLight(0xffffff);
-pointLight.position.set(15, 18, 100);
+const atmosphereGeo = new THREE.SphereGeometry(13, 50, 40);
+const atmosphereMat = new THREE.ShaderMaterial({
+  vertexShader: atmosphereVertexShader,
+  fragmentShader: atmosphereFragmentShader,
+  blending: THREE.AdditiveBlending,
+  side: THREE.BackSide,
+});
+const atmosphere = new THREE.Mesh(atmosphereGeo, atmosphereMat);
 
-const ambientLight = new THREE.AmbientLight(0x111111);
+//stars
 
-scene.add(pointLight, ambientLight);
+const starGeometry = new THREE.BufferGeometry();
+const starMaterial = new PointsMaterial({
+  color: 0xffffff,
+});
+
+const starVertices = [];
+for (let i = 0; i < 2000; i++) {
+  const x = (Math.random() - 0.5) * 2000;
+  const y = (Math.random() - 0.5) * 2000;
+  const z = (Math.random() - 0.5) * 2000;
+  starVertices.push(x, y, z);
+}
+
+starGeometry.setAttribute(
+  "position",
+  new THREE.Float32BufferAttribute(starVertices, 3)
+);
+
+const stars = new THREE.Points(starGeometry, starMaterial);
+
+scene.add(earth, atmosphere, stars);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
