@@ -5,7 +5,7 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link rel="stylesheet" href="style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>Weather App</title>
   </head>
   <body>
     <div id="app">
@@ -14,24 +14,48 @@
         <div class="content-wrapper">
           <div class="search">
             <div class="search-field">
-              <select name="city" id="city">
-                <option value="Tokyo">Tokyo</option>
-                <option value="Delhi">Delhi</option>
-                <option value="Mumbai">Mumbai</option>
-                <option value="London">London</option>
+              <select id="select" onchange="showData()">
+                <option value="tokyo">Tokyo</option>
+                <option value="delhi">Delhi</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="london">London</option>
               </select>
             </div>
-            <button><img src="" alt="search" /></button>
+            <div class="or-div">OR</div>
+            <div class="search-field">
+              <input
+                type="text"
+                name=""
+                id="search-bar"
+                placeholder="Search city"
+              />
+              <button
+                class="search-btn"
+                onclick="showDataSearch()"
+                type="submit"
+              >
+                <img
+                  src="/assets/search.png"
+                  alt="search"
+                  class="search-field-img"
+                />
+              </button>
+            </div>
           </div>
-          <p>Weather in</p>
-          <p>25.5<sup>o</sup>C</p>
-          <p><img src="" alt="cloud" /> Scattered clouds</p>
-          <p>Humidity: 70%</p>
-          <p>Wind speed: km/hr</p>
+
+          <p id="error"></p>
+          <p class="weather-p">Weather in <span id="city-name"></span></p>
+          <p class="temp-p"><span id="temperature"></span><sup>o</sup>C</p>
+          <div class="cloud-div">
+            <img src="/assets/cloud.png" alt="cloud" class="cloud-img" />
+            <span id="cloud"></span>
+          </div>
+          <p class="humidity-p">Humidity: <span id="humidity"></span> %</p>
+          <p class="wind-p">Wind speed: <span id="wind"></span> km/hr</p>
         </div>
       </div>
     </div>
-
+    <script src="/weather.js"></script>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
