@@ -48,9 +48,12 @@ input:focus {
   padding: 2.5rem 5rem 4rem 5rem;
   height: 500px;
   width: 60%;
-  border-radius: 10px;
+  border-radius: 15px;
 }
-.search {
+.desc {
+  font-size: 12px;
+  padding-left: 10px;
+  color: rgb(141, 141, 141);
 }
 
 #select {
@@ -91,7 +94,7 @@ input:focus {
   box-shadow: 0 8px 32px 0 rgba(57, 57, 57, 0.37);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  margin: 10px 0;
+  margin: 0px 0 10px 0;
   padding: 5px 15px;
   border: none;
   text-decoration: none;
