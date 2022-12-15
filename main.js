@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import earthTexture from "./assets/earth.jpg";
 import "./style.css";
+import "./weather";
 
 import {
   vertexShader,
