@@ -3,6 +3,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import earthTexture from "./assets/earth.jpg";
 import "./style.css";
 import "./weather";
+import { showDataSearch, showData } from "./weather";
 
 import {
   vertexShader,
@@ -107,3 +108,6 @@ window.addEventListener("resize", () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.updateProjectionMatrix();
 });
+
+showData();
+export { showData, showDataSearch };

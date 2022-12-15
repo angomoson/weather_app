@@ -15,7 +15,7 @@
           <div class="search">
             <p class="desc">Select a city.</p>
             <div class="search-field">
-              <select id="select" onchange="showData()">
+              <select id="select" onchange="module.showData()">
                 <option value="tokyo">Tokyo</option>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
@@ -33,7 +33,7 @@
               />
               <button
                 class="search-btn"
-                onclick="showDataSearch()"
+                onclick="module.showDataSearch()"
                 type="submit"
               >
                 <img
@@ -57,7 +57,17 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript" src="./weather.js"></script>
-    <script type="module" src="./main.js"></script>
+    <!-- <script type="text/javascript" src="./weather.js"></script> -->
+    <!-- <script type="module" src="./main.js"> </script>-->
+
+    <script type="text/javascript">
+      const module = {};
+    </script>
+
+    <script type="module">
+      import { showData, showDataSearch } from "./main.js";
+      module.showData = showData;
+      module.showDataSearch = showDataSearch;
+    </script>
   </body>
 </html>

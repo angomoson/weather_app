@@ -5,8 +5,7 @@ const humidity = document.getElementById("humidity");
 const wind = document.getElementById("wind");
 const errorPara = document.getElementById("error");
 
-const showData = () => {
-  //
+export const showData = () => {
   let selectOption = document.getElementById("select").value;
   const getData = async (city) => {
     const URL = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city.toLowerCase()}&mode=json&units=metric&cnt=5&appid=fbf712a5a83d7305c3cda4ca8fe7ef29`;
@@ -29,13 +28,12 @@ const showData = () => {
 
   getData(selectOption);
 };
-showData();
+// showData();
 
 let count = 0;
 
-const showDataSearch = () => {
+export const showDataSearch = () => {
   const searchValue = document.getElementById("search-bar").value;
-  // searchValue.defaultValue = "Imphal";
   const getData = async (city) => {
     const URL = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city.toLowerCase()}&mode=json&units=metric&cnt=5&appid=fbf712a5a83d7305c3cda4ca8fe7ef29`;
 
@@ -65,4 +63,4 @@ const showDataSearch = () => {
 
   getData(searchValue);
 };
-showDataSearch();
+// showDataSearch();

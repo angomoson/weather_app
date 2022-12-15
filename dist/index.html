@@ -6,7 +6,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
-    <script type="module" crossorigin src="/assets/index-44df10b8.js"></script>
+    <script type="module" crossorigin src="/assets/index-154dafcd.js"></script>
     <link rel="stylesheet" href="/assets/index-5920ca1b.css">
   </head>
   <body>
@@ -17,7 +17,7 @@
           <div class="search">
             <p class="desc">Select a city.</p>
             <div class="search-field">
-              <select id="select" onchange="showData()">
+              <select id="select" onchange="module.showData()">
                 <option value="tokyo">Tokyo</option>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
@@ -35,7 +35,7 @@
               />
               <button
                 class="search-btn"
-                onclick="showDataSearch()"
+                onclick="module.showDataSearch()"
                 type="submit"
               >
                 <img
@@ -59,7 +59,13 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript" src="./weather.js"></script>
+    <!-- <script type="text/javascript" src="./weather.js"></script> -->
+    <!-- <script type="module" src="./main.js"> </script>-->
+
+    <script type="text/javascript">
+      const module = {};
+    </script>
+
     
   </body>
 </html>
