@@ -45,7 +45,7 @@ input:focus {
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 
-  padding: 2.5rem 5rem 4rem 5rem;
+  padding: 1rem 5rem 4rem 5rem;
   height: 500px;
   width: 60%;
   border-radius: 15px;
