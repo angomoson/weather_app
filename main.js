@@ -2,8 +2,6 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import earthTexture from "./assets/earth.jpg";
 import "./style.css";
-import "./weather";
-import { showDataSearch, showData } from "./weather";
 
 import {
   vertexShader,
@@ -14,22 +12,21 @@ import {
 
 import { PointsMaterial } from "three";
 
+const canvas = document.querySelector("#three");
+let width = canvas.offsetWidth;
+let height = canvas.offsetHeight;
+
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 
 const renderer = new THREE.WebGLRenderer({
-  canvas: document.querySelector("#three"),
+  canvas,
   antialias: true,
 });
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(width, height);
 
-camera.position.set(0, 0, 30);
+camera.position.set(0, 0, 22);
 
 //texture loader
 
@@ -104,10 +101,12 @@ animate();
 //resize
 
 window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  width = canvas.offsetWidth;
+  height = canvas.offsetHeight;
+
+  camera.aspect = width / height;
+  renderer.setSize(width, height);
   camera.updateProjectionMatrix();
 });
 
-showData();
-export { showData, showDataSearch };
+if (width < 450) camera.position.set(0, 0, 37);

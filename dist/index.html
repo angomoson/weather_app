@@ -6,7 +6,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
-    <script type="module" crossorigin src="/assets/index-154dafcd.js"></script>
+    <script type="module" crossorigin src="/assets/index-b21bb7b4.js"></script>
     <link rel="stylesheet" href="/assets/index-5920ca1b.css">
   </head>
   <body>
@@ -17,7 +17,7 @@
           <div class="search">
             <p class="desc">Select a city.</p>
             <div class="search-field">
-              <select id="select" onchange="module.showData()">
+              <select id="select" onchange="showData()">
                 <option value="tokyo">Tokyo</option>
                 <option value="delhi">Delhi</option>
                 <option value="mumbai">Mumbai</option>
@@ -35,7 +35,7 @@
               />
               <button
                 class="search-btn"
-                onclick="module.showDataSearch()"
+                onclick="showDataSearch()"
                 type="submit"
               >
                 <img
@@ -59,13 +59,74 @@
         </div>
       </div>
     </div>
-    <!-- <script type="text/javascript" src="./weather.js"></script> -->
-    <!-- <script type="module" src="./main.js"> </script>-->
+    <script>
+      const cityName = document.getElementById("city-name");
+      const temperature = document.getElementById("temperature");
+      const cloud = document.getElementById("cloud");
+      const humidity = document.getElementById("humidity");
+      const wind = document.getElementById("wind");
+      const errorPara = document.getElementById("error");
 
-    <script type="text/javascript">
-      const module = {};
+      const showData = () => {
+        let selectOption = document.getElementById("select").value;
+        const getData = async (city) => {
+          const URL = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city.toLowerCase()}&mode=json&units=metric&cnt=5&appid=fbf712a5a83d7305c3cda4ca8fe7ef29`;
+
+          await fetch(URL)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+              cityName.innerHTML = data.city.name;
+              temperature.innerHTML = data.list[0].temp.day;
+              cloud.innerHTML = data.list[0].weather[0].description;
+              humidity.innerHTML = data.list[0].humidity;
+              wind.innerHTML = data.list[0].speed;
+              errorPara.innerHTML = "";
+            })
+            .catch((err) => {
+              console.log("Fetch Error :-S", err);
+            });
+        };
+
+        getData(selectOption);
+      };
+      showData();
+
+      let count = 0;
+
+      const showDataSearch = () => {
+        const searchValue = document.getElementById("search-bar").value;
+        const getData = async (city) => {
+          const URL = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city.toLowerCase()}&mode=json&units=metric&cnt=5&appid=fbf712a5a83d7305c3cda4ca8fe7ef29`;
+
+          if (searchValue) {
+            await fetch(URL)
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+                cityName.innerHTML = data.city.name;
+                temperature.innerHTML = data.list[0].temp.day;
+                cloud.innerHTML = data.list[0].weather[0].description;
+                humidity.innerHTML = data.list[0].humidity;
+                wind.innerHTML = data.list[0].speed;
+                errorPara.innerHTML = "";
+              })
+              .catch((err) => {
+                errorPara.innerHTML = "city not found.";
+                count += 1;
+              });
+          } else {
+            count === 0
+              ? (errorPara.innerHTML = "")
+              : (errorPara.innerHTML = "Please enter a City name.");
+          }
+          count += 1;
+        };
+
+        getData(searchValue);
+      };
+      // showDataSearch();
     </script>
-
     
   </body>
 </html>

@@ -5,7 +5,7 @@ const humidity = document.getElementById("humidity");
 const wind = document.getElementById("wind");
 const errorPara = document.getElementById("error");
 
-export const showData = () => {
+const showData = () => {
   let selectOption = document.getElementById("select").value;
   const getData = async (city) => {
     const URL = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city.toLowerCase()}&mode=json&units=metric&cnt=5&appid=fbf712a5a83d7305c3cda4ca8fe7ef29`;
@@ -28,11 +28,11 @@ export const showData = () => {
 
   getData(selectOption);
 };
-// showData();
+showData();
 
 let count = 0;
 
-export const showDataSearch = () => {
+const showDataSearch = () => {
   const searchValue = document.getElementById("search-bar").value;
   const getData = async (city) => {
     const URL = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city.toLowerCase()}&mode=json&units=metric&cnt=5&appid=fbf712a5a83d7305c3cda4ca8fe7ef29`;
